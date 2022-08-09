@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as dotenv from "dotenv";
 import { CdkIacStack } from '../lib/cdk-iac-stack';
+import { CdkIacStackSlave } from '../lib/cdk-iac-slave';
 require("dotenv").config();
 
 // -------- REMEMBER TO CHANGE ACCOOUNT INFORMATION -----------
@@ -25,6 +26,20 @@ const AWS_CB = 'cbuild';
 const app = new cdk.App();
 new CdkIacStack(app,
   `${APPNAME}`, {
+  
+  
+  lambdaRoleName: `${APPNAME}-${AWS_IAM}-role`,
+  appName_: `${APPNAME}`,
+  env: {
+    account: process.env.ACCOUNT_NUMBER,
+    region: 'us-east-1',}
+
+
+    });
+    
+    
+    new CdkIacStackSlave(app,
+  `${APPNAME}-slave`, {
   
   
   lambdaRoleName: `${APPNAME}-${AWS_IAM}-role`,
